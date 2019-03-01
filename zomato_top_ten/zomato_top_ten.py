@@ -43,7 +43,7 @@ class zomato:
         else:
             return -1
 
-    def __populate_table (self, res):
+    def __populate_table (self, res, city_name):
         self.__table.field_names = ["Restaurant name", "Rating", "Votes"]
         for r in res['restaurants']:
             name = r['restaurant']['name']
@@ -122,12 +122,14 @@ class zomato:
             city_id = self.get_city_id(city_name)
             collection_id = self.get_collection_id(city_name, collection_option)
             query = "search?entity_id={entity_id}&entity_type=city&"\
-                    "count=100&collection_id={collection_id}&sort=rating&order=desc"\
-                    .format(entity_id=city_id, collection_id=collection_id)
+                    "count=100&collection_id={collection_id}&"\
+		    "sort=rating&order=desc"\
+                    .format(entity_id=city_id,
+		    collection_id=collection_id)
             res = self.__get_json_res(query)
             if res != -1:
                 if len(res['restaurants']) > 0:
-                    self.__populate_table(res)
+                    self.__populate_table(res, city_name)
                     """
                     if collection_option is "Bars/Pubs", include Microbreweries as well
                     to the search
@@ -135,12 +137,14 @@ class zomato:
                     if collection_option == 1:
                         collection_id = self.get_collection_id(city_name, 2)
                         query = "search?entity_id={entity_id}&entity_type=city&"\
-                                "count=100&collection_id={collection_id}&sort=rating&order=desc"\
-                                .format(entity_id=city_id, collection_id=collection_id)
+                                "count=100&collection_id={collection_id}&"\
+				"sort=rating&order=desc"\
+                                .format(entity_id=city_id,
+				collection_id=collection_id)
                         res = self.__get_json_res(query)
                         if res != -1:
                             if len(res['restaurants']) > 0:
-                                self.__populate_table(res)
+                                self.__populate_table(res, city_name)
                     print(self.__table.get_string(start=0,end=10))
                     return 0
             else:
@@ -150,8 +154,7 @@ class zomato:
             print("Exception traceback: %s"%str(traceback.format_exception\
                 (exc_type, exc_value, exc_traceback)))
 
-
-if __name__ == "__main__":
+def main():
     try:
         user_key = input("Enter user key (Press Enter to use owner's key): ")
         city_name = input("Enter city: ")
@@ -172,3 +175,6 @@ if __name__ == "__main__":
         print("Exception traceback: %s"%str(traceback.format_exception\
                 (exc_type, exc_value, exc_traceback)))
 
+
+if __name__ == "__main__":
+    main()
