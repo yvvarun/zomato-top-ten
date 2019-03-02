@@ -14,4 +14,7 @@ setup(
             'zomato_top_ten = zomato_top_ten.zomato_top_ten:main',
         ]
     },
+    install_requires=[
+        'prettytable',
+    ],
 )
