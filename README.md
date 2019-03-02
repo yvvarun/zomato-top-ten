@@ -4,7 +4,7 @@ Gets top 10 restaurants for different collections such as pubs, microbreweries, 
 ## Installation
 
 ```bash
- pip3 install --extra-index-url https://testpypi.python.org/pypi zomato_top_ten
+ pip3 install --extra-index-url https://testpypi.python.org/pypi zomato_top_ten==1.0.1
 ```
 
 ## Getting Started
